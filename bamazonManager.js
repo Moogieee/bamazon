@@ -13,6 +13,7 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
     if(err) throw err;
     console.log('\nWelcome to Bamazon Manager View!\n');
+    managerMenu();
 });
 
 
@@ -41,7 +42,7 @@ function managerMenu() {
         }
     });
 }
-managerMenu();
+
 
 
 //function that allows the manager to view current inventory
@@ -127,6 +128,8 @@ function addToInventory() {
     })
 };
 
+
+//function that allows the manager to update inventory of an item
 function updateInventory(product) {
     connection.query('UPDATE products SET ? WHERE ?', [
         {
