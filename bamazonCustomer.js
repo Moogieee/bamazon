@@ -1,8 +1,7 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
 var Table = require('cli-table2');
-var itemsArray = [];
-var itemsIdArray = [];
+
 
 var connection = mysql.createConnection({
     host: 'localhost',
@@ -14,7 +13,7 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if(err) throw err;
-    console.log('Welcome to Bamazon!\n');
+    console.log('\nWelcome to Bamazon!\n');
 });
 
 
@@ -27,7 +26,11 @@ var table = new Table ({
 connection.query('SELECT * FROM products', function(err, res) {
     if(err) throw err;
     for (var i = 0; i < res.length; i++) {
-        table.push([res[i].item_id, res[i].product_name, res[i].department_name, '$' + res[i].price, res[i].stock_quantity]);
+        table.push([res[i].item_id, 
+                    res[i].product_name, 
+                    res[i].department_name, 
+                    '$' + res[i].price, 
+                    res[i].stock_quantity]);
     };
     console.log(table.toString());
     userMenu();
@@ -70,8 +73,8 @@ function userMenu() {
                     }, {
                         item_id: res[0].item_id
                     }], function(err, res) {
-                        userMenu();
                         console.log(table.toString());
+                        userMenu();
                     });
                 }
             }
